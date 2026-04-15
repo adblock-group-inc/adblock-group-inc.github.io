@@ -1,0 +1,840 @@
+@layer reset, fonts, variables, global-styles, blocks, compositions, utilities;
+
+@layer utilities {
+
+  /* 
+    * REGION UTILITY
+    * Consistent block padding for page sections
+    */
+  .region {
+    padding-block: var(--region-space, var(--space-xl-2xl));
+  }
+
+  /*
+    * VISUALLY HIDDEN UTILITY
+    * @link https://piccalil.li/quick-tip/visually-hidden/ 
+    */
+  .visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+
+  .text-centered {
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+    --opentype-case: "case" on;
+  }
+
+  .smallcaps {
+    font-variant-caps: all-small-caps;
+    font-variant-numeric: oldstyle-nums;
+  }
+}
+
+@layer compositions {
+
+  /*
+    * CLUSTER
+    * More info: https://every-layout.dev/layouts/cluster/
+    * A layout that lets you distribute items with consitent
+    * spacing, regardless of their size
+    * CUSTOM PROPERTIES AND CONFIGURATION
+    * --gutter (var(--space-s-m)): This defines the space
+    * between each item.
+    * --cluster-horizontal-alignment (flex-start) How items should align
+    * horizontally. Can be any acceptable flexbox aligmnent value.
+    * --cluster-vertical-alignment How items should align vertically.
+    * Can be any acceptable flexbox alignment value.
+    */
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gutter, var(--space-s-m));
+    justify-content: var(--cluster-horizontal-alignment, flex-start);
+    align-items: var(--cluster-vertical-alignment, center);
+  }
+
+  /* 
+    * FLOW COMPOSITION 
+    * ike the Every Layout stack: https://every-layout.dev/layouts/stack/
+    * Info about this implementation: https://piccalil.li/quick-tip/flow-utility/ 
+    */
+  .flow>*+* {
+    margin-top: var(--flow-space, 1em);
+  }
+
+  /* 
+    * AUTO GRID
+    * Related Every Layout: https://every-layout.dev/layouts/grid/
+    * More info on the flexible nature: https://piccalil.li/tutorial/create-a-responsive-grid-layout-with-no-media-queries-using-css-grid/
+    * A flexible layout that will create an auto-fill grid with
+    * configurable grid item sizes
+    * CUSTOM PROPERTIES AND CONFIGURATION
+    * --gutter (var(--space-s-m)): This defines the space
+    * between each item.
+    * --grid-min-item-size (14rem): How large each item should be
+    * ideally, as a minimum.
+    * --grid-placement (auto-fill): Set either auto-fit or auto-fill
+    * to change how empty grid tracks are handled 
+    */
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-placement, auto-fill),
+        minmax(var(--grid-min-item-size, 16rem), 1fr));
+    gap: var(--gutter, var(--space-s-l));
+  }
+
+  /* A split 50/50 layout */
+  .grid[data-layout='halves'] {
+    --grid-placement: auto-fit;
+    --grid-min-item-size: clamp(16rem, 50vw, 33rem);
+  }
+
+  /* Three column grid layout */
+  .grid[data-layout='thirds'] {
+    --grid-placement: auto-fit;
+    --grid-min-item-size: clamp(16rem, 33%, 20rem);
+  }
+
+  /*
+    * REPEL
+    * A little layout that pushes items away from each other where
+    * there is space in the viewport and stacks on small viewports
+    * CUSTOM PROPERTIES AND CONFIGURATION
+    * --gutter (var(--space-s-m)): This defines the space
+    * between each item.
+    * --repel-vertical-alignment How items should align vertically.
+    * Can be any acceptable flexbox alignment value.
+    */
+  .repel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: var(--repel-vertical-alignment, center);
+    gap: var(--gutter, var(--space-s-m));
+  }
+
+  .repel[data-nowrap] {
+    flex-wrap: nowrap;
+  }
+
+  /* 
+    * SIDEBAR
+    * More info: https://every-layout.dev/layouts/sidebar/
+    * A layout that allows you to have a flexible main content area
+    * and a "fixed" width sidebar that sits on the left or right.
+    * If there is not enough viewport space to fit both the sidebar
+    * width *and* the main content minimum width, they will stack
+    * on top of each other
+    * CUSTOM PROPERTIES AND CONFIGURATION
+    * --gutter (var(--space-size-1)): This defines the space
+    * between the sidebar and main content.
+    * --sidebar-target-width (20rem): How large the sidebar should be
+    * --sidebar-content-min-width(50%): The minimum size of the main content area
+    * EXCEPTIONS
+    * .sidebar[data-direction='rtl']: flips the sidebar to be on the right 
+    */
+  .sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gutter, var(--space-s-l));
+  }
+
+  .sidebar> :first-child {
+    flex-basis: var(--sidebar-target-width, 20rem);
+    flex-grow: 1;
+  }
+
+  .sidebar> :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: var(--sidebar-content-min-width, 50%);
+  }
+
+  /*
+    * SWITCHER
+    * More info: https://every-layout.dev/layouts/switcher/
+    * A layout that allows you to lay **2** items next to each other
+    * until there is not enough horizontal space to allow that.
+    * CUSTOM PROPERTIES AND CONFIGURATION
+    * --gutter (var(--space-size-1)): This defines the space between each item
+    * --switcher-target-container-width (40rem): How large the container
+    * needs to be to allow items to sit inline with each other
+    * --switcher-vertical-alignment How items should align vertically.
+    * Can be any acceptable flexbox alignment value.
+    */
+  .switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gutter, var(--space-s-l));
+    align-items: var(--switcher-vertical-alignment, flex-start);
+  }
+
+  .switcher>* {
+    flex-grow: 1;
+    flex-basis: calc((var(--switcher-target-container-width, 40rem) - 100%) * 999);
+  }
+
+  /* Max 2 items, so anything greater than 2 is full width */
+  .switcher> :nth-child(n + 3) {
+    flex-basis: 100%;
+  }
+
+  /*
+    * WRAPPER COMPOSITION 
+    * A common wrapper/container
+    */
+  .wrapper {
+    margin-inline: auto;
+    max-width: clamp(16rem, var(--wrapper-max-width, 100vw), 80rem);
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    position: relative;
+  }
+}
+
+@layer blocks {
+  .prose {
+    --flow-space: var(--space-m);
+
+    text-wrap: pretty;
+
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-size-adjust: 0.507;
+
+
+    -webkit-hyphens: auto;
+    -webkit-hyphenate-limit-before: 4;
+    -webkit-hyphenate-limit-after: 3;
+    -webkit-hyphenate-limit-lines: 2;
+
+    hyphens: auto;
+    hyphenate-limit-chars: 7 4 3;
+    hyphenate-limit-lines: 2;
+    hyphenate-limit-zone: 8%;
+    hyphenate-limit-last: always;
+  }
+}
+
+@layer global-styles {
+
+  @view-transition {
+    navigation: auto;
+  }
+
+  html {
+    scrollbar-color: var(--clr-fg) var(--clr-bg);
+    cursor: var(--cursor-yellow-default)
+  }
+
+  body {
+    text-decoration-skip-ink: auto;
+    font-optical-sizing: auto;
+    font-variant-ligatures: common-ligatures no-discretionary-ligatures no-historical-ligatures contextual;
+    font-kerning: normal;
+    font-family: var(--font-family);
+    font-style: italic;
+    font-weight: normal;
+    font-size: var(--step-0);
+    color: var(--clr-text);
+    padding-block: var(--space-xl);
+    padding-inline: var(--space-s-l);
+    background-color: var(--clr-bg);
+  }
+
+  body:has(dialog[open]) {
+    overflow: hidden
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: bold;
+    text-transform: lowercase;
+    letter-spacing: -0.05em;
+  }
+
+  h1 {
+    font-size: var(--step-9);
+    line-height: 0.6;
+  }
+
+  h2 {
+    font-size: var(--step-3);
+  }
+
+  h3 {
+    font-size: var(--step-2);
+  }
+
+  header:has(h1) {
+    padding-inline: var(--space-2xs);
+    width: fit-content;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus,
+  a[aria-current="page"] {
+    text-decoration: underline;
+  }
+
+  a[href="index.html"] {
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  a,
+  button {
+    cursor: var(--cursor-yellow-pointer);
+  }
+
+  .btn {
+    border: var(--border);
+    border-radius: var(--border-radius-large);
+    font-weight: bold;
+    padding: var(--space-2xs);
+  }
+
+  .btn.yellow-btn {
+    background-color: var(--clr-yellow);
+  }
+
+  .btn.grey-btn {
+    background-color: var(--clr-grey);
+  }
+
+  main {
+    container-type: inline-size;
+    padding: var(--space-s-l);
+    min-height: 70vh;
+  }
+
+  section.main-section {
+    background-color: var(--clr-fg);
+    border-radius: var(--border-radius-small);
+  }
+
+  nav ul {
+    border-block-end: var(--border);
+    --cluster-horizontal-alignment: flex-end;
+    --gutter: 0;
+    --cluster-vertical-alignment: stretch;
+  }
+
+  @media screen and (max-width: 515px) {
+    nav ul>li:first-child {
+      border-inline-start: none;
+    }
+  }
+
+  @media screen and (max-width: 405px) {
+    nav ul>li {
+      border-inline-start: none !important;
+    }
+  }
+
+  nav ul>li {
+    border-inline-start: var(--border);
+    padding-block: var(--space-xs) 0;
+    padding-inline: var(--space-s);
+  }
+
+  .icon {
+    width: 28px;
+    aspect-ratio: 1/1;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .icon-shopping-cart {
+    background-image: url('/public/img/icons/kundvagn.png');
+  }
+
+  .icon-close-btn {
+    background-image: url('/public/img/icons/close-btn.png');
+  }
+
+  button:has(.icon) {
+    border: 0;
+    background: none;
+    width: fit-content;
+  }
+
+  .contact-page {
+    padding-block: var(--space-2xl-3xl);
+  }
+
+  .contact-page article {
+    border: var(--border);
+    border-radius: var(--border-radius-small);
+    padding-block: var(--space-xl-2xl);
+    padding-inline: var(--space-xl);
+
+    margin-inline: auto;
+    max-width: 550px;
+    aspect-ratio: 16/9;
+  }
+
+  .contact-page p {
+    font-size: var(--step-2);
+  }
+
+  .products-page .products {
+    display: grid;
+    gap: var(--gutter, var(--space-s-m));
+    width: 100%;
+
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr auto;
+
+    padding-inline-start: 0;
+  }
+
+  @container (min-width: 30rem) {
+    .products-page .products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @container (min-width: 50rem) {
+    .products-page .products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .products-page .products>li {
+    display: contents;
+  }
+
+  .products-page .product {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    gap: var(--space-xs);
+    padding-block: var(--space-s-m);
+    padding-inline: var(--space-m-l);
+    border: var(--border);
+    border-radius: var(--border-radius-small);
+  }
+
+  .products-page .product figure {
+    place-self: center;
+    width: 100%;
+  }
+
+  .products-page .product img {
+    object-fit: contain;
+    width: 100%;
+  }
+
+  .products-page .product figure:has(img[src="/public/img/products/hammare.png"]) {
+    rotate: -60deg;
+  }
+
+  .yellow-rectangle {
+    background-color: var(--clr-bg);
+    border-radius: var(--border-radius-small);
+    width: 100%;
+    aspect-ratio: 16/9;
+    place-self: center;
+  }
+
+
+
+
+
+
+
+
+
+
+  :modal {
+    background-color: var(--clr-bg);
+
+    padding-block: var(--space-2xl) var(--space-l);
+    padding-inline: var(--space-xl);
+
+    border: var(--border);
+    border-radius: var(--border-radius-small);
+  }
+
+  :modal form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s-m);
+  }
+
+  :modal form h2 {
+    font-size: var(--step-5);
+  }
+
+  :modal form button:focus,
+  :modal form button:hover {
+    outline: 2px solid currentColor;
+    outline-offset: 0.2rem;
+  }
+
+  ::backdrop {
+    background: rgb(0 0 0 / 30%);
+  }
+
+  .product-modal::backdrop {
+    display: none;
+  }
+
+  .product-modal[open] {
+    border: none;
+    border-radius: 0;
+    padding: var(--space-s);
+    background-color: var(--clr-yellow);
+    width: 100dvw;
+    height: 100dvh;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+
+  .product-modal figure:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-modal img {
+    width: auto;
+    object-fit: contain;
+  }
+
+
+
+  .product-page main {
+    display: flex;
+  }
+
+  .detail-panel {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .product-page .panel-open .detail-panel {
+    width: 100%;
+  }
+
+  .product-card {
+    width: 40%;
+
+    background-color: var(--clr-fg);
+    border: var(--border);
+    border-radius: var(--border-radius-small);
+
+    padding: var(--space-2xs);
+  }
+
+  .product-card-data {
+    padding: var(--space-m);
+  }
+
+  .product-page .panel-open .product-card {
+    opacity: 1;
+  }
+
+}
+
+@layer variables {
+  :root {
+    /*
+        * FLUID TYPE SCALE
+        * @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,20,1.25,10,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+        */
+    /* Step -2: 12.5px → 12.8px */
+    --step--2: clamp(0.7813rem, 0.7736rem + 0.0341vw, 0.8rem);
+    /* Step -1: 15px → 16px */
+    --step--1: clamp(0.9375rem, 0.9119rem + 0.1136vw, 1rem);
+    /* Step 0: 18px → 20px */
+    --step-0: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem);
+    /* Step 1: 21.6px → 25px */
+    --step-1: clamp(1.35rem, 1.2631rem + 0.3864vw, 1.5625rem);
+    /* Step 2: 25.92px → 31.25px */
+    --step-2: clamp(1.62rem, 1.4837rem + 0.6057vw, 1.9531rem);
+    /* Step 3: 31.104px → 39.0625px */
+    --step-3: clamp(1.944rem, 1.7405rem + 0.9044vw, 2.4414rem);
+    /* Step 4: 37.3248px → 48.8281px */
+    --step-4: clamp(2.3328rem, 2.0387rem + 1.3072vw, 3.0518rem);
+    /* Step 5: 44.7898px → 61.0352px */
+    --step-5: clamp(2.7994rem, 2.384rem + 1.8461vw, 3.8147rem);
+    /* Step 6: 53.7477px → 76.2939px */
+    --step-6: clamp(3.3592rem, 2.7828rem + 2.5621vw, 4.7684rem);
+    /* Step 7: 64.4973px → 95.3674px */
+    --step-7: clamp(4.0311rem, 3.2418rem + 3.508vw, 5.9605rem);
+    /* Step 8: 77.3967px → 119.2093px */
+    --step-8: clamp(4.8373rem, 3.7682rem + 4.7514vw, 7.4506rem);
+    /* Step 9: 92.876px → 149.0116px */
+    --step-9: clamp(5.8048rem, 4.3695rem + 6.379vw, 9.3132rem);
+    /* Step 10: 111.4513px → 186.2645px */
+    --step-10: clamp(6.9657rem, 5.0529rem + 8.5015vw, 11.6415rem);
+
+    /*
+        * FLUID SPACE 
+        /* @link https://utopia.fyi/space/calculator?c=360,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 
+        */
+    /* Space 3xs: 5px → 5px */
+    --space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem);
+    /* Space 2xs: 9px → 10px */
+    --space-2xs: clamp(0.5625rem, 0.5369rem + 0.1136vw, 0.625rem);
+    /* Space xs: 14px → 15px */
+    --space-xs: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem);
+    /* Space s: 18px → 20px */
+    --space-s: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem);
+    /* Space m: 27px → 30px */
+    --space-m: clamp(1.6875rem, 1.6108rem + 0.3409vw, 1.875rem);
+    /* Space l: 36px → 40px */
+    --space-l: clamp(2.25rem, 2.1477rem + 0.4545vw, 2.5rem);
+    /* Space xl: 54px → 60px */
+    --space-xl: clamp(3.375rem, 3.2216rem + 0.6818vw, 3.75rem);
+    /* Space 2xl: 72px → 80px */
+    --space-2xl: clamp(4.5rem, 4.2955rem + 0.9091vw, 5rem);
+    /* Space 3xl: 108px → 120px */
+    --space-3xl: clamp(6.75rem, 6.4432rem + 1.3636vw, 7.5rem);
+
+    /* One-up pairs */
+    /* Space 3xs-2xs: 5px → 10px */
+    --space-3xs-2xs: clamp(0.3125rem, 0.1847rem + 0.5682vw, 0.625rem);
+    /* Space 2xs-xs: 9px → 15px */
+    --space-2xs-xs: clamp(0.5625rem, 0.4091rem + 0.6818vw, 0.9375rem);
+    /* Space xs-s: 14px → 20px */
+    --space-xs-s: clamp(0.875rem, 0.7216rem + 0.6818vw, 1.25rem);
+    /* Space s-m: 18px → 30px */
+    --space-s-m: clamp(1.125rem, 0.8182rem + 1.3636vw, 1.875rem);
+    /* Space m-l: 27px → 40px */
+    --space-m-l: clamp(1.6875rem, 1.3551rem + 1.4773vw, 2.5rem);
+    /* Space l-xl: 36px → 60px */
+    --space-l-xl: clamp(2.25rem, 1.6364rem + 2.7273vw, 3.75rem);
+    /* Space xl-2xl: 54px → 80px */
+    --space-xl-2xl: clamp(3.375rem, 2.7102rem + 2.9545vw, 5rem);
+    /* Space 2xl-3xl: 72px → 120px */
+    --space-2xl-3xl: clamp(4.5rem, 3.2727rem + 5.4545vw, 7.5rem);
+
+    /* Custom pairs */
+    /* Space s-l: 18px → 40px */
+    --space-s-l: clamp(1.125rem, 0.5625rem + 2.5vw, 2.5rem);
+
+    /* COLORS */
+    --clr-true-dark: #000000;
+    --clr-true-light: #ffffff;
+
+    --clr-yellow: #ffdb28;
+    --clr-grey: #b3b3b3;
+
+    --clr-bg: var(--clr-yellow);
+    --clr-fg: var(--clr-grey);
+    --clr-text: var(--clr-true-dark);
+
+    /* FONT */
+    --font-family: 'Helvetica Neue', sans-serif;
+
+    /* CURSOR  */
+    --cursor-yellow-default: url("/public/cursor/cursor_yellow.png"), auto;
+    --cursor-yellow-pointer: url("/public/cursor/cursor_pointer_yellow.png"), auto;
+
+    --cursor-grey-default: url("/public/cursor/cursor_pointer_grey.png"), auto;
+    --cursor-grey-pointer: url("/public/cursor/cursor_pointer_grey.png"), auto;
+
+    /* BORDER RADIUS */
+    --border-radius-large: 999px;
+    --border-radius-small: 10px;
+
+    /* BORDER */
+    --border: 1px solid var(--clr-true-dark);
+  }
+}
+
+@layer fonts {
+
+  /* Helvetica Neue — Light Italic */
+  @font-face {
+    font-display: swap;
+    font-family: "Helvetica Neue";
+    font-weight: 300;
+    font-style: italic;
+    src: url("/public/fonts/HelveticaNeueLightItalic.otf") format("opentype");
+  }
+
+  /* Helvetica Neue — Medium Italic */
+  @font-face {
+    font-display: swap;
+    font-family: "Helvetica Neue";
+    font-weight: 500;
+    font-style: italic;
+    src: url("/public/fonts/HelveticaNeueMediumItalic.otf") format("opentype");
+  }
+
+  /* Helvetica Neue — Bold Italic */
+  @font-face {
+    font-display: swap;
+    font-family: "Helvetica Neue";
+    font-weight: 700;
+    font-style: italic;
+    src: url("/public/fonts/HelveticaNeueBoldItalic.otf") format("opentype");
+  }
+}
+
+@layer reset {
+
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    font-feature-settings: "case" var(--opentype-case, off), "sinf" var(--opentype-sinf, off);
+  }
+
+  /* Prevent font size inflation */
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  /* Remove default margin in favour of better control in authored CSS */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  address,
+  p,
+  hr,
+  pre,
+  blockquote,
+  ol,
+  ul,
+  li,
+  dl,
+  dt,
+  dd,
+  figure,
+  figcaption,
+  div,
+  table,
+  caption,
+  form,
+  fieldset {
+    margin: 0;
+  }
+
+  /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+  ul[role='list'],
+  ol[role='list'] {
+    list-style: none;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    line-height: 1.4;
+    text-rendering: optimizeLegibility;
+
+    font-size-adjust: 0.5;
+    font-size-adjust: ex-height 0.5;
+    font-size-adjust: ch-width 0.556;
+    font-size-adjust: cap-height 0.7;
+  }
+
+  /* Set shorter line heights on headings and interactive elements */
+  h1,
+  h2,
+  h3,
+  h4,
+  button,
+  input,
+  label {
+    line-height: 1.1;
+  }
+
+  /* Balance text wrapping on headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    font-variant-numeric: lining-nums;
+  }
+
+  h1 {
+    font-variant-ligatures: discretionary-ligatures;
+  }
+
+  strong,
+  b,
+  th {
+    font-weight: bold;
+  }
+
+  /* A elements that don't have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+    color: currentColor;
+  }
+
+  /* Make images easier to work with */
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  /* Make sure textareas without a rows attribute are not tiny */
+  textarea:not([rows]) {
+    min-height: 10em;
+  }
+
+  /* Anything that has been anchored to should have extra scroll margin */
+  :target {
+    scroll-margin-block: 5ex;
+  }
+
+  td,
+  math,
+  time[datetime*=":"] {
+    font-variant-numeric: tabular-nums lining-nums slashed-zero;
+  }
+
+  code {
+    font-variant-numeric: slashed-zero;
+  }
+
+}

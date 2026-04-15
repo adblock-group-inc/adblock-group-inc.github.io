@@ -1,0 +1,206 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>adblock</title>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="description" content="">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:image:alt" content="">
+
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html">
+            <h1>Adblock</h1>
+        </a>
+    </header>
+
+    <section class="main-section">
+        <nav aria-label="primary">
+            <ul class="cluster" role="list">
+                <li>
+                    <a href="products.html" aria-current="page">Våra produkter</a>
+                </li>
+                <li>
+                    <a href="contact.html">Kontakt</a>
+                </li>
+                <li>
+                    <a href="checkout.html">
+                        <i class="icon icon-shopping-cart"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="products-page">
+            <ul class="products" id="products" role="list">
+                <li>
+                    <article class="product" data-product-name="hammare"
+                        data-product-img-src="/public/img/products/hammare.png" data-product-btn-text="köp nu 99 kr"
+                        data-product-desc="Hammare är bra bla bla bla bla bla bla bla vlawpeojf-qwejr hej hej okej men vadå hejjjjjjjjö.">
+                        <figure>
+                            <img src="/public/img/products/hammare.png" alt="Hammare" width="100" height="300">
+                        </figure>
+                        <button class="btn yellow-btn">hammare</button>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="product" data-product-name="roller"
+                        data-product-img-src="/public/img/products/roller.png" data-product-btn-text="köp nu 99 kr">
+                        <figure>
+                            <img src="/public/img/products/roller.png" alt="Roller" height="300">
+                        </figure>
+                        <button class="btn yellow-btn">roller</button>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="product" data-product-name="roller"
+                        data-product-img-src="/public/img/products/roller.png" data-product-btn-text="köp nu 99 kr">
+                        <figure>
+                            <img src="/public/img/products/roller.png" alt="Roller" height="300">
+                        </figure>
+                        <button class="btn yellow-btn">roller</button>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="product" data-product-name="roller"
+                        data-product-img-src="/public/img/products/roller.png" data-product-btn-text="köp nu 99 kr">
+                        <figure>
+                            <img src="/public/img/products/roller.png" alt="Roller" height="300">
+                        </figure>
+                        <button class="btn yellow-btn">roller</button>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="product" data-product-name="audio block"
+                        data-product-img-src="/public/img/products/audio_block.png" data-product-btn-text="testa nu" data-modal>
+                        <figure>
+                            <img src="/public/img/products/audio_block.png" alt="Audio block" width="100" height="200">
+                        </figure>
+                        <button class="btn yellow-btn">audio block</button>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="product" data-product-name="digital adblock" data-product-btn-text="testa nu" data-modal>
+                        <div class="yellow-rectangle"></div>
+                        <button class="btn yellow-btn">digital adblock</button>
+                    </article>
+                </li>
+            </ul>
+
+            <div class="detail-panel visually-hidden" id="panel">
+                <div class="product-card">
+                    <button id="close">
+                        <i class="icon icon-close-btn"></i>
+                    </button>
+                    <div class="flow product-card-data">
+                        <figure id="pFigure">
+                            <img id="pImg" src="" alt="">
+                        </figure>
+                        <div class="yellow-rectangle visually-hidden" id="pRect"></div>
+                        <h2 id="pName"></h2>
+                        <p id="pDesc"></p>
+                        <button id="pBtn" class="btn yellow-btn"></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+
+    <dialog class="product-modal" id="productModal">
+        <button id="modalClose">
+            <i class="icon icon-close-btn"></i>
+        </button>
+        <figure id="modalFigure" hidden>
+            <img id="modalImg" src="" alt="">
+        </figure>
+        <audio id="brus" src="/public/sound/brus.wav" loop></audio>
+    </dialog>
+
+    <script>
+        const mainEl = document.querySelector('main');
+        const grid = document.getElementById('products');
+        const panel = document.getElementById('panel');
+        const pImg = document.getElementById('pImg');
+        const pFigure = document.getElementById('pFigure');
+        const pRect = document.getElementById('pRect');
+        const pName = document.getElementById('pName');
+        const pDesc = document.getElementById('pDesc');
+        const pBtn = document.getElementById('pBtn');
+        const productModal = document.getElementById('productModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalFigure = document.getElementById('modalFigure');
+        const brus = document.getElementById('brus');
+        let activeCard = null;
+
+        function openPanel(card) {
+            activeCard?.classList.remove('active');
+            activeCard = card;
+            card.classList.add('active');
+
+            const imgSrc = card.dataset.productImgSrc;
+            pName.textContent = card.dataset.productName;
+            pBtn.textContent = card.dataset.productBtnText;
+            pDesc.textContent = card.dataset.productDesc;
+            pFigure.classList.toggle('visually-hidden', !imgSrc);
+            pRect.classList.toggle('visually-hidden', !!imgSrc);
+            if (imgSrc) { pImg.src = imgSrc; pImg.alt = card.dataset.productName; }
+
+            mainEl.classList.add('panel-open');
+            panel.classList.remove('visually-hidden');
+            grid.classList.add('visually-hidden');
+        }
+
+        function closePanel() {
+            activeCard?.classList.remove('active');
+            activeCard = null;
+            mainEl.classList.remove('panel-open');
+            panel.classList.add('visually-hidden');
+            grid.classList.remove('visually-hidden');
+        }
+
+        grid.querySelectorAll('.product button').forEach(btn =>
+            btn.addEventListener('click', () => openPanel(btn.closest('.product')))
+        );
+
+        pBtn.addEventListener('click', () => {
+            if (!('modal' in activeCard.dataset)) return;
+            const imgSrc = activeCard.dataset.productImgSrc;
+            modalFigure.hidden = !imgSrc;
+            if (imgSrc) { modalImg.src = imgSrc; modalImg.alt = activeCard.dataset.productName; }
+            productModal.showModal();
+            if (activeCard.dataset.productName === 'audio block') { brus.volume = 0.2; brus.play(); }
+        });
+
+        document.getElementById('modalClose').addEventListener('click', () => {
+            productModal.close();
+            brus.pause();
+            brus.currentTime = 0;
+        });
+        document.getElementById('close').addEventListener('click', closePanel);
+    </script>
+
+</body>
+
+</html>
