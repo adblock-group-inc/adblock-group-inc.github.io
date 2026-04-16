@@ -268,7 +268,8 @@
 
   h1 {
     font-size: var(--step-9);
-    line-height: 0.6;
+    line-height: 1;
+    margin-bottom: calc(-0.2em + 2px);
   }
 
   h2 {
@@ -468,7 +469,7 @@
   :modal {
     background-color: var(--clr-bg);
 
-    padding-block: var(--space-2xl) var(--space-l);
+    padding-block: var(--space-xl-2xl) var(--space-l);
     padding-inline: var(--space-xl);
 
     border: var(--border);
