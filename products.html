@@ -114,14 +114,15 @@
                 </li>
             </ul>
 
-            <div class="detail-panel visually-hidden" id="panel">
+            <div class="detail-panel visually-hidden grid" data-layout='halves' id="panel">
+                <div></div>
                 <div class="product-card">
                     <button id="close">
                         <i class="icon icon-close-btn"></i>
                     </button>
                     <div class="flow product-card-data">
                         <figure id="pFigure">
-                            <img id="pImg" src="" alt="">
+                            <img id="pImg" src="" alt="" height="300">
                         </figure>
                         <div class="yellow-rectangle visually-hidden" id="pRect"></div>
                         <h2 id="pName"></h2>
@@ -139,7 +140,7 @@
             <i class="icon icon-close-btn"></i>
         </button>
         <figure id="modalFigure" hidden>
-            <img id="modalImg" src="" alt="">
+            <img id="modalImg" src="" alt="" >
         </figure>
         <audio id="brus" src="/public/sound/brus.wav" loop></audio>
     </dialog>
