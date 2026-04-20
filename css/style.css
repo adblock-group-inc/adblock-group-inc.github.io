@@ -456,7 +456,9 @@
 
   .page-wrapper {
     display: grid;
+    grid-template-rows: auto 1fr;
     gap: var(--space-3xs);
+    min-height: calc(100dvh - 2 * var(--space-xl));
   }
 
 
