@@ -448,11 +448,6 @@
     height: auto;
   }
 
-  .products-page .product figure:has(img[src="/public/img/products/hammare.png"]) img {
-    rotate: -55deg;
-    scale: 1.3;
-  }
-
 
   .page-wrapper {
     display: grid;
@@ -570,16 +565,7 @@
     margin-inline: 0;
   }
 
-  .detail-panel .product-card-data figure img {
-    max-height: 240px;
-    width: auto;
-  }
 
-  .product-card[data-product-name="roller"] .product-card-data figure img {
-    max-height: 180px;
-    rotate: -20deg;
-    scale: 1.2;
-  }
 
   .detail-panel .product-card-data section {
     width: 100%;
@@ -606,10 +592,12 @@
     padding: var(--space-2xs);
     width: clamp(min(100cqi, 20rem), 50cqi, 100cqi);
     align-self: flex-end;
+
+
   }
 
   .product-card-data {
-    padding: var(--space-m);
+    padding: var(--space-l);
   }
 
   .product-card-data figure {
@@ -618,15 +606,12 @@
   }
 
   .product-card[data-product-name="hammare"] .product-card-data {
-    padding: 0;
     display: grid;
     grid-template-columns: 2fr 3fr;
     grid-template-rows: 1fr auto;
-    min-height: 650px;
     align-items: stretch;
     justify-items: stretch;
     text-align: left;
-    column-gap: var(--space-l);
   }
 
   .product-card[data-product-name="hammare"] .product-card-data figure {
@@ -640,10 +625,7 @@
     overflow: hidden;
   }
 
-  .product-card[data-product-name="hammare"] .product-card-data figure img {
-    max-height: 560px;
-    width: auto;
-  }
+
 
   .product-card[data-product-name="hammare"] .product-card-data section {
     grid-column: 1;
