@@ -1,0 +1,1 @@
+Bild > Beskär till innehåll 

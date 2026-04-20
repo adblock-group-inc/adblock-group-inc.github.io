@@ -30,33 +30,80 @@
 
 <body>
 
-    <header>
-        <a href="index.html">
-            <h1>Adblock</h1>
-        </a>
-    </header>
 
-    <section class="main-section">
-        <nav aria-label="primary">
-            <ul class="cluster" role="list">
-                <li>
-                    <a href="products.html">Våra produkter</a>
-                </li>
-                <li>
-                    <a href="contact.html">Kontakt</a>
-                </li>
-                <li>
-                    <a href="checkout.html" aria-current="page">
-                        <i class="icon icon-shopping-cart"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <div class="page-wrapper">
+        <header>
+            <a href="index.html">
+                <img src="/public/img/assets_adblock13.png" alt="">
+            </a>
+        </header>
 
-        <main class="checkout-page">
+        <section class="main-section">
+            <nav aria-label="primary">
+                <ul class="cluster" role="list">
+                    <li>
+                        <a href="products.html">Våra produkter</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Kontakt</a>
+                    </li>
+                    <li>
+                        <a href="checkout.html" aria-current="page">
+                            <i class="icon icon-shopping-cart"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
-        </main>
-    </section>
+            <main class="checkout-page">
+                <article class="checkout-card" hidden>
+                    <button id="clearCart">
+                        <i class="icon icon-close-btn"></i>
+                    </button>
+                    <ul class="checkout-items flow" id="cartList" role="list"></ul>
+                    <div class="cart-total btn yellow-btn" id="cartTotal" hidden></div>
+                </article>
+
+                <article id="cartEmpty" class="cart-empty" hidden>
+                    <p class="prose text-centered">din kundvagn är tom.</p>
+                </article>
+            </main>
+        </section>
+    </div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('adblock-cart') || '[]');
+        const list = document.getElementById('cartList');
+        const emptyMsg = document.getElementById('cartEmpty');
+        const totalEl = document.getElementById('cartTotal');
+        const checkoutCard = document.querySelector('.checkout-card');
+
+        if (cart.length === 0) {
+            emptyMsg.hidden = false;
+        } else {
+            checkoutCard.hidden = false;
+            let total = 0;
+            cart.forEach(item => {
+                const price = parseInt((item.btnText || '').match(/(\d+)/)?.[1] ?? 0);
+                total += price * item.qty;
+                const li = document.createElement('li');
+                li.className = 'checkout-item';
+                const figHtml = item.imgSrc
+                    ? `<figure><img src="${item.imgSrc}" alt="${item.name}"></figure>`
+                    : '<figure></figure>';
+                li.innerHTML = `${figHtml}<span class="btn yellow-btn">${item.name}${item.qty > 1 ? ' ×' + item.qty : ''} — ${price * item.qty} kr</span>`;
+                list.appendChild(li);
+            });
+            totalEl.textContent = `totalt: ${total} kr`;
+            totalEl.hidden = false;
+        }
+
+        document.getElementById('clearCart').addEventListener('click', () => {
+            localStorage.removeItem('adblock-cart');
+            checkoutCard.hidden = true;
+            emptyMsg.hidden = false;
+        });
+    </script>
 
     <script src="js/app.js"></script>
 
