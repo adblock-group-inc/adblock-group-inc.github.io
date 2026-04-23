@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>adblock</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <meta name="description" content="">
 
     <meta property="og:title" content="">
@@ -33,7 +33,7 @@
 
     <div class="page-wrapper">
         <header>
-            <a href="index.html">
+            <a href="/index.html">
                 <img src="/public/img/assets_adblock13.png" alt="">
             </a>
         </header>
@@ -41,6 +41,9 @@
         <section class="main-section">
             <nav aria-label="primary">
                 <ul class="cluster" role="list">
+                    <li>
+                        <a href="/our-history.html">Vår historia</a>
+                    </li>
                     <li>
                         <a href="products.html">Våra produkter</a>
                     </li>
@@ -56,18 +59,23 @@
             </nav>
 
             <main class="checkout-page">
-                <article class="checkout-card" hidden>
-                    <button id="clearCart">
-                        <i class="icon icon-close-btn"></i>
-                    </button>
+                <article class="checkout-card repel" data-direction="column" hidden>
                     <ul class="checkout-items flow" id="cartList" role="list"></ul>
                     <div class="cart-total btn yellow-btn" id="cartTotal" hidden></div>
                 </article>
 
-                <article id="cartEmpty" class="cart-empty" hidden>
-                    <p class="prose text-centered">din kundvagn är tom.</p>
+                <article id="cartEmpty" class="cart-empty-card repel" hidden>
+                    <h3>din kundvagn är tom.</h3>
+
+                    <figure>
+                        <img src="/public/img/icons/kundvagn.png" alt="" width="250">
+                    </figure>
+
+                    <a href="/products.html" class="btn yellow-btn">till våra produkter</a>
                 </article>
             </main>
+
+
         </section>
     </div>
 
@@ -84,14 +92,11 @@
             checkoutCard.hidden = false;
             let total = 0;
             cart.forEach(item => {
-                const price = parseInt((item.btnText || '').match(/(\d+)/)?.[1] ?? 0);
+                const price = parseInt((item.price || '').match(/(\d+)/)?.[1] ?? 0);
                 total += price * item.qty;
                 const li = document.createElement('li');
                 li.className = 'checkout-item';
-                const figHtml = item.imgSrc
-                    ? `<figure><img src="${item.imgSrc}" alt="${item.name}"></figure>`
-                    : '<figure></figure>';
-                li.innerHTML = `${figHtml}<span class="btn yellow-btn">${item.name}${item.qty > 1 ? ' ×' + item.qty : ''} — ${price * item.qty} kr</span>`;
+                li.innerHTML = `<span>${item.name}${item.qty > 1 ? ' ×' + item.qty : ''}</span><span class="btn yellow-btn">${item.price}</span>`;
                 list.appendChild(li);
             });
             totalEl.textContent = `totalt: ${total} kr`;

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>adblock</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <meta name="description" content="">
 
     <meta property="og:title" content="">
@@ -33,7 +33,7 @@
 
     <div class="page-wrapper">
         <header>
-            <a href="index.html">
+            <a href="/index.html">
                 <img src="/public/img/assets_adblock13.png" alt="">
             </a>
         </header>
@@ -41,6 +41,9 @@
         <section class="main-section">
             <nav aria-label="primary">
                 <ul class="cluster" role="list">
+                    <li>
+                        <a href="/our-history.html">Vår historia</a>
+                    </li>
                     <li>
                         <a href="products.html" aria-current="page">Våra produkter</a>
                     </li>
@@ -58,178 +61,74 @@
             <main class="products-page">
                 <ul class="products" id="products" role="list">
                     <li>
-                        <article class="product" data-product-name="hammare"
-                            data-product-img-src="/public/img/products/hammare.png"
-                            data-product-btn-text="köp nu 99 kr"
-                            data-product-desc="Hammare är bra bla bla bla bla bla bla bla vlawpeojf-qwejr hej hej okej men vadå hejjjjjjjjjö.">
+                        <article class="product">
                             <figure>
-                                <img src="/public/img/products/hammare.png" alt="Hammare">
+                                <img src="/public/img/products/hammare_sm.png" alt="Hammare">
                             </figure>
-                            <button class="btn yellow-btn">hammare</button>
+                            <a class="btn yellow-btn" href="/products/hammare.html">hammare</a>
                         </article>
                     </li>
 
                     <li>
-                        <article class="product" data-product-name="roller"
-                            data-product-img-src="/public/img/products/roller.png" data-product-btn-text="köp nu 99 kr">
+                        <article class="product">
                             <figure>
-                                <img src="/public/img/products/roller.png" alt="Roller">
+                                <img src="/public/img/products/roller_sm.png" alt="Roller">
                             </figure>
-                            <button class="btn yellow-btn">roller</button>
+                            <a class="btn yellow-btn" href="/products/roller.html">roller</a>
+                        </article>
+                    </li>
+
+
+                    <li>
+                        <article class="product">
+                            <figure>
+                                <img src="/public/img/products/brytbladskniv_sm.png" alt="Roller">
+                            </figure>
+                            <a class="btn yellow-btn" href="/products/brytbladskniv.html">brytbladskniv</a>
                         </article>
                     </li>
 
                     <li>
-                        <article class="product" data-product-name="brytbladskniv"
-                            data-product-img-src="/public/img/products/brytbladskniv.png" data-product-btn-text="köp nu 99 kr">
+                        <article class="product">
                             <figure>
-                                <img src="/public/img/products/brytbladskniv.png" alt="Roller">
+                                <img src="/public/img/products/skyddsglasögon_sm.png" alt="Roller">
                             </figure>
-                            <button class="btn yellow-btn">brytbladskniv</button>
+                            <a class="btn yellow-btn" href="/products/skyddsglasögon.html">skyddsglasögon</a>
                         </article>
                     </li>
 
                     <li>
-                        <article class="product" data-product-name="öronproppar"
-                            data-product-img-src="/public/img/products/öronproppar.png" data-product-btn-text="köp nu 99 kr">
+                        <article class="product">
                             <figure>
-                                <img src="/public/img/products/öronproppar.png" alt="öronproppar">
+                                <img src="/public/img/products/mobilskydd_sm_b.png" alt="öronproppar">
                             </figure>
-                            <button class="btn yellow-btn">öronproppar</button>
+                            <a class="btn yellow-btn" href="/products/mobilskydd.html">mobilskydd</a>
                         </article>
                     </li>
 
                     <li>
-                        <article class="product" data-product-name="audio block"
-                            data-product-img-src="/public/img/products/audio_block.png" data-product-btn-text="testa nu"
-                            data-modal>
+                        <article class="product">
                             <figure>
-                                <img src="/public/img/products/audio_block.png" alt="Audio block">
+                                <img src="/public/img/products/digital_adblock_md.png" alt="Audio block">
                             </figure>
-                            <button class="btn yellow-btn">audio block</button>
+                            <a class="btn yellow-btn" href="/products/digital_adblock.html">digital
+                                adblock</a>
                         </article>
                     </li>
 
                     <li>
-                        <article class="product" data-product-name="digital adblock"
-                            data-product-img-src="/public/img/products/digital_adblock.png"
-                            data-product-btn-text="testa nu"
-                            data-modal>
+                        <article class="product">
                             <figure>
-                                <img src="/public/img/products/digital_adblock.png" alt="Audio block" height="300">
-                            </figure> 
-                        <button class="btn yellow-btn">digital adblock</button>
+                                <img src="/public/img/products/glasögonskydd_sm.png" alt="Glasögonskydd">
+                            </figure>
+                            <a class="btn yellow-btn" href="/products/glasögonskydd.html">glasögonskydd</a>
                         </article>
                     </li>
                 </ul>
 
-                <div class="detail-panel visually-hidden" id="panel">
-                    <div class="product-card">
-                        <button id="close">
-                            <i class="icon icon-close-btn"></i>
-                        </button>
-                        <div class="product-card-data flow">
-                            <figure id="pFigure">
-                                <img id="pImg" src="" alt="">
-                            </figure>
-                            <section>
-                                <h2 id="pName"></h2>
-                                <p id="pDesc"></p>
-                                <button id="pBtn" class="btn yellow-btn"></button>
-                            </section>
-                        </div>
-                    </div>
-                </div>
             </main>
         </section>
-
-
-        <dialog class="product-modal" id="productModal">
-            <button id="modalClose">
-                <i class="icon icon-close-btn"></i>
-            </button>
-            <figure id="modalFigure" hidden>
-                <img id="modalImg" src="" alt="">
-            </figure>
-            <audio id="brus" src="/public/sound/brus.wav" loop></audio>
-        </dialog>
     </div>
-    <script>
-        const mainEl = document.querySelector('main');
-        const grid = document.getElementById('products');
-        const panel = document.getElementById('panel');
-        const pImg = document.getElementById('pImg');
-        const pFigure = document.getElementById('pFigure');
-        const pName = document.getElementById('pName');
-        const pDesc = document.getElementById('pDesc');
-        const pBtn = document.getElementById('pBtn');
-        const productModal = document.getElementById('productModal');
-        const modalImg = document.getElementById('modalImg');
-        const modalFigure = document.getElementById('modalFigure');
-        const brus = document.getElementById('brus');
-        let activeCard = null;
-
-        const panelCard = panel.querySelector('.product-card');
-
-        function openPanel(card) {
-            activeCard?.classList.remove('active');
-            activeCard = card;
-            card.classList.add('active');
-
-            const imgSrc = card.dataset.productImgSrc;
-            panelCard.dataset.productName = card.dataset.productName ?? '';
-            pName.textContent = card.dataset.productName;
-            pBtn.textContent = card.dataset.productBtnText;
-            pDesc.textContent = card.dataset.productDesc;
-            pFigure.classList.toggle('visually-hidden', !imgSrc);
-            if (imgSrc) { pImg.src = imgSrc; pImg.alt = card.dataset.productName; }
-
-            mainEl.classList.add('panel-open');
-            panel.classList.remove('visually-hidden');
-            grid.classList.add('visually-hidden');
-        }
-
-        function closePanel() {
-            activeCard?.classList.remove('active');
-            activeCard = null;
-            mainEl.classList.remove('panel-open');
-            panel.classList.add('visually-hidden');
-            grid.classList.remove('visually-hidden');
-        }
-
-        grid.querySelectorAll('.product button').forEach(btn =>
-            btn.addEventListener('click', () => openPanel(btn.closest('.product')))
-        );
-
-        function addToCart(name, imgSrc, btnText) {
-            const cart = JSON.parse(localStorage.getItem('adblock-cart') || '[]');
-            const existing = cart.find(i => i.name === name);
-            if (existing) { existing.qty++; } else { cart.push({ name, imgSrc, btnText, qty: 1 }); }
-            localStorage.setItem('adblock-cart', JSON.stringify(cart));
-        }
-
-        pBtn.addEventListener('click', () => {
-            if ('modal' in activeCard.dataset) {
-                const imgSrc = activeCard.dataset.productImgSrc;
-                modalFigure.hidden = !imgSrc;
-                if (imgSrc) { modalImg.src = imgSrc; modalImg.alt = activeCard.dataset.productName; }
-                productModal.showModal();
-                if (activeCard.dataset.productName === 'audio block') { brus.volume = 0.2; brus.play(); }
-            } else {
-                addToCart(activeCard.dataset.productName, activeCard.dataset.productImgSrc, activeCard.dataset.productBtnText);
-                const orig = pBtn.textContent;
-                pBtn.textContent = 'tillagd!';
-                setTimeout(() => { pBtn.textContent = orig; }, 1200);
-            }
-        });
-
-        document.getElementById('modalClose').addEventListener('click', () => {
-            productModal.close();
-            brus.pause();
-            brus.currentTime = 0;
-        });
-        document.getElementById('close').addEventListener('click', closePanel);
-    </script>
 
 </body>
 

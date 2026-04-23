@@ -130,6 +130,10 @@
     flex-wrap: nowrap;
   }
 
+  .repel[data-direction="column"] {
+    flex-direction: column;
+  }
+
   /* 
     * SIDEBAR
     * More info: https://every-layout.dev/layouts/sidebar/
@@ -202,6 +206,20 @@
     padding-left: var(--gutter);
     padding-right: var(--gutter);
     position: relative;
+  }
+
+  .imposter {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .imposter.contain {
+    --margin: 0px;
+    overflow: auto;
+    max-inline-size: calc(100% - (var(--margin) * 2));
+    max-block-size: calc(100% - (var(--margin) * 2));
   }
 }
 
@@ -288,7 +306,6 @@
   }
 
   a:hover,
-  a:focus,
   a[aria-current="page"] {
     text-decoration: underline;
   }
@@ -302,12 +319,37 @@
     cursor: var(--cursor-yellow-pointer);
   }
 
+  :focus {
+    outline: 2px solid currentColor;
+    outline-offset: 0.2rem;
+  }
+
+  #testaGratisClose:focus {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--clr-yellow);
+    color: var(--clr-true-dark);
+  }
+
+  img[src="/public/img/assets_adblock13.png"]::selection {
+    background-color: var(--clr-true-dark);
+  }
+
+  .btn.yellow-btn::selection {
+    background-color: var(--clr-true-dark);
+    color: var(--clr-yellow);
+  }
+
   .btn {
     border: var(--border);
     border-radius: var(--border-radius-large);
+    width: 100%;
     font-weight: bold;
-    padding-block: var(--space-xs)  var(--space-xs);
+    padding-block: var(--space-xs) var(--space-xs);
     padding-inline: var(--space-xs);
+    text-align: center;
   }
 
   .btn.yellow-btn {
@@ -317,7 +359,6 @@
   .btn.grey-btn {
     background-color: var(--clr-grey);
   }
-
 
   main {
     container-type: inline-size;
@@ -423,12 +464,13 @@
     display: grid;
     grid-template-rows: subgrid;
     grid-row: span 2;
-    gap: var(--space-xs);
     padding-block: var(--space-s-m);
     padding-inline: var(--space-m-l);
     border: var(--border);
     border-radius: var(--border-radius-small);
   }
+
+
 
   .products-page .product figure {
     place-self: center;
@@ -462,7 +504,7 @@
   :modal {
     background-color: var(--clr-bg);
 
-    text-transform:none;
+    text-transform: none;
 
     padding-block: var(--space-2xl) var(--space-l);
     padding-inline: var(--space-xl);
@@ -471,9 +513,9 @@
     border-radius: var(--border-radius-small);
   }
 
-  :modal form { 
-  display: grid;
-  place-items: center;
+  :modal form {
+    display: grid;
+    place-items: center;
     gap: var(--space-m-l);
   }
 
@@ -501,177 +543,25 @@
     font-size: var(--step-1);
   }
 
-  .product-modal::backdrop {
-    display: none;
-  }
-
-  .product-modal[open] {
-    border: none;
-    border-radius: 0;
-    padding: var(--space-s);
-    background-color: var(--clr-yellow);
-    width: 100dvw;
-    height: 100dvh;
-    max-width: 100%;
-    max-height: 100%;
-    margin: 0;
-    display: grid;
-    grid-template-rows: auto 1fr;
-  }
-
-  .product-modal figure:not([hidden]) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .product-modal img {
-    width: auto;
-    object-fit: contain;
-  }
-
-
-
-  .product-page main {
-    display: flex;
-  }
-
-  .detail-panel {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-page .panel-open .detail-panel {
-    width: 100%;
-  }
-
-
-  .detail-panel .product-card-data {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-m);
-  }
-
-  .detail-panel .product-card-data > figure {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-inline: 0;
-  }
-
-
-
-  .detail-panel .product-card-data section {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-s);
-  }
-
-  .detail-panel .product-card-data section button {
-    width: fit-content;
-  }
-
-
-  .products-page .product button {
-    z-index: 1;
-    
-  
-  }
-
-  .product-card {
-    background-color: var(--clr-fg);
-    border: var(--border);
-    border-radius: var(--border-radius-small);
-    padding: var(--space-2xs);
-    width: clamp(min(100cqi, 20rem), 50cqi, 100cqi);
-    align-self: flex-end;
-
-
-  }
-
-  .product-card-data {
-    padding: var(--space-l);
-  }
-
-  .product-card-data figure {
-    width: fit-content;
-    margin-inline: auto;
-  }
-
-  .product-card[data-product-name="hammare"] .product-card-data {
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-    grid-template-rows: 1fr auto;
-    align-items: stretch;
-    justify-items: stretch;
-    text-align: left;
-  }
-
-  .product-card[data-product-name="hammare"] .product-card-data figure {
-    grid-column: 2;
-    grid-row: 1 / -1;
-    width: auto;
-    margin-inline: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    overflow: hidden;
-  }
-
-
-
-  .product-card[data-product-name="hammare"] .product-card-data section {
-    grid-column: 1;
-    grid-row: 2;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    padding-inline: var(--space-l);
-    padding-block: var(--space-l);
-    text-align: left;
-    align-items: flex-start;
-  }
-
-  .product-card[data-product-name="hammare"] .product-card-data section h2 {
-    text-align: left;
-  }
-
-  .product-card[data-product-name="hammare"] .product-card-data section p {
-    max-width: 25ch;
-  }
-
-  .product-card[data-product-name="hammare"] .product-card-data section button {
-    width: 100%;
-  }
-
-  .product-page .panel-open .product-card {
-    opacity: 1;
-  }
-
   .checkout-page {
-    container-type: inline-size;
+    height: 100cqh;
   }
+
+
 
 
   .checkout-card {
     border: var(--border);
     border-radius: var(--border-radius-small);
-    padding: var(--space-m);
+    padding: var(--space-m-l);
     margin-inline-start: auto;
- width: clamp(min(100cqi, 20rem), 50cqi, 100cqi);            display: flex;
+    display: flex;
     flex-direction: column;
     gap: var(--space-m);
-  }
 
-  .checkout-close {
     width: fit-content;
+    height: 100%;
+
   }
 
   .checkout-items {
@@ -685,44 +575,104 @@
     display: flex;
     align-items: center;
     gap: var(--space-m);
-        justify-content: space-around;
+    justify-content: space-between;
   }
 
-  .checkout-item figure {
-    flex-shrink: 0;
-    width: 150px;
+  .checkout-item>span {
+    min-width: 12rem;
   }
 
-  .checkout-item figure img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-  }
+  .cart-empty-card {
+     border: var(--border);
+    border-radius: var(--border-radius-small);
+    padding: var(--space-m-l);
+    margin-inline-start: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
 
-  .checkout-item .btn {
     width: fit-content;
-    white-space: nowrap;
+    height: 100%;
   }
 
-  .cart-total {
-    width: fit-content;
-  }
 
-    .cart-empty {
+
+
+
+
+  .product-card-info {
     border: var(--border);
     border-radius: var(--border-radius-small);
-    padding-block: var(--space-xl-2xl);
-    padding-inline: var(--space-xl);
+    padding: var(--space-m-l);
 
-    margin-inline: auto;
-    max-width: fit-content;
-    aspect-ratio: 16/9;
+    flex-direction: column;
+    max-width: 366px;
+
+    --repel-vertical-alignment: start;
+
   }
 
-  .cart-empty p {
-    font-size: var(--step-2);
+  .product-detail-page-wrapper {
+    display: flex;
+    margin-inline-start: auto;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: var(--gutter, var(--space-s-m));
+
   }
 
+  .img-crossfade {
+    position: relative;
+    display: grid;
+  }
+
+  .img-crossfade img {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: auto;
+  }
+
+  .img-crossfade img:last-child {
+    animation: crossfade 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes crossfade {
+    0% {
+      opacity: 0;
+    }
+
+    40% {
+      opacity: 0;
+    }
+
+    60% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .testa-gratis-modal[open] {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: var(--clr-yellow);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-s);
+    padding: var(--space-s);
+  }
+
+  .testa-gratis-modal::backdrop {
+    display: none;
+  }
 
 }
 
