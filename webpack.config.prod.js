@@ -35,6 +35,7 @@ module.exports = merge(common, {
         { from: "favicon-16x16.png", to: "favicon-16x16.png" },
         { from: "favicon-32x32.png", to: "favicon-32x32.png" },
         { from: "robots.txt", to: "robots.txt" },
+        { from: "kitchen-sink.html", to: "kitchen-sink.html"},
         { from: "404.html", to: "404.html" },
         { from: "site.webmanifest", to: "site.webmanifest" },
       ],
