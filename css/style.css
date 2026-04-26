@@ -589,7 +589,7 @@
     flex-direction: column;
     gap: var(--space-m);
 
-    max-width: 500px;
+    max-width: 600px;
     height: 100%;
   }
 
@@ -611,7 +611,7 @@
     flex-direction: column;
     gap: var(--space-m);
 
-    max-width: 500px;
+    max-width: 600px;
     height: 100%;
   }
 
@@ -645,6 +645,10 @@
     font-size: var(--step-3);
     font-weight: bold;
     margin-inline-start: 8px;
+  }
+
+  .price-info  {
+    gap: var(--space-2xs) !important;
   }
 
   .img-crossfade {
