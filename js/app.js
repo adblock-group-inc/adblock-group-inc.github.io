@@ -1,3 +1,23 @@
+
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem("adblock-cart") || "[]");
+  const qty = cart.reduce((sum, item) => sum + item.qty, 0);
+  const link = document.querySelector('nav a[href*="checkout"]');
+  if (!link) return;
+  link.classList.add("cart-link");
+  let badge = link.querySelector(".cart-badge");
+  if (!badge) {
+    badge = document.createElement("span");
+    badge.className = "cart-badge";
+    link.appendChild(badge);
+  }
+  badge.textContent = qty;
+  badge.hidden = qty === 0;
+}
+
+updateCartBadge();
+window.addEventListener('cart-changed', updateCartBadge);
+
 function addToCart(name, price) {
   const cart = JSON.parse(localStorage.getItem("adblock-cart") || "[]");
   const existing = cart.find((i) => i.name === name);
@@ -7,13 +27,14 @@ function addToCart(name, price) {
     cart.push({ name, price, qty: 1 });
   }
   localStorage.setItem("adblock-cart", JSON.stringify(cart));
+  updateCartBadge();
 }
 
 const detailPage = document.querySelector(".product-detail-page");
 if (detailPage) {
   const name = detailPage.querySelector(".product-card-info .flow h2")?.textContent.trim() ?? "";
   const flows = detailPage.querySelectorAll(".product-card-info > .flow");
-  const price = flows[flows.length - 1]?.querySelector("h2")?.textContent.trim() ?? "";
+  const price = flows[flows.length - 1]?.querySelector("h2, .price")?.textContent.trim() ?? "";
 
   detailPage.querySelectorAll(".btn.yellow-btn:not([data-action])").forEach((btn) => {
     btn.addEventListener("click", () => {

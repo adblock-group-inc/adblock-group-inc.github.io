@@ -42,7 +42,7 @@
             <nav aria-label="primary">
                 <ul class="cluster" role="list">
                     <li>
-                        <a href="/our-history.html">Vår historia</a>
+                        <a href="/index.html">Hem</a>
                     </li>
                     <li>
                         <a href="products.html">Våra produkter</a>
@@ -64,7 +64,7 @@
                     <div class="cart-total btn yellow-btn" id="cartTotal" hidden></div>
                 </article>
 
-                <article id="cartEmpty" class="cart-empty-card repel" hidden>
+                <article id="cartEmpty" class="cart-empty-card repel"  data-direction="column" data-nowrap hidden>
                     <h3>din kundvagn är tom.</h3>
 
                     <figure>
@@ -80,34 +80,59 @@
     </div>
 
     <script>
-        const cart = JSON.parse(localStorage.getItem('adblock-cart') || '[]');
+        let cart = JSON.parse(localStorage.getItem('adblock-cart') || '[]');
         const list = document.getElementById('cartList');
         const emptyMsg = document.getElementById('cartEmpty');
         const totalEl = document.getElementById('cartTotal');
         const checkoutCard = document.querySelector('.checkout-card');
 
-        if (cart.length === 0) {
-            emptyMsg.hidden = false;
-        } else {
+        function save() {
+            localStorage.setItem('adblock-cart', JSON.stringify(cart));
+            window.dispatchEvent(new CustomEvent('cart-changed'));
+        }
+
+        function render() {
+            list.innerHTML = '';
+            if (cart.length === 0) {
+                checkoutCard.hidden = true;
+                emptyMsg.hidden = false;
+                totalEl.hidden = true;
+                return;
+            }
             checkoutCard.hidden = false;
+            emptyMsg.hidden = true;
             let total = 0;
-            cart.forEach(item => {
+            cart.forEach((item, i) => {
                 const price = parseInt((item.price || '').match(/(\d+)/)?.[1] ?? 0);
                 total += price * item.qty;
                 const li = document.createElement('li');
-                li.className = 'checkout-item';
-                li.innerHTML = `<span>${item.name}${item.qty > 1 ? ' ×' + item.qty : ''}</span><span class="btn yellow-btn">${item.price}</span>`;
+                li.className = 'checkout-item repel';
+                li.innerHTML = `
+                    <span>${item.name}${item.qty > 1 ? ' ×' + item.qty : ''}</span>
+                    <div class="repel">
+                    <span class="btn grey-btn" data-width="fit-content">${item.price}</span>
+
+                    <button class="trash-btn" aria-label="Ta bort ${item.name}">
+                            <i class="icon icon-trash-can"></i>
+                    </button>
+                    </div>
+                    `;
+                li.querySelector('.trash-btn').addEventListener('click', () => {
+                    if (cart[i].qty > 1) {
+                        cart[i].qty--;
+                    } else {
+                        cart.splice(i, 1);
+                    }
+                    save();
+                    render();
+                });
                 list.appendChild(li);
             });
             totalEl.textContent = `totalt: ${total} kr`;
             totalEl.hidden = false;
         }
 
-        document.getElementById('clearCart').addEventListener('click', () => {
-            localStorage.removeItem('adblock-cart');
-            checkoutCard.hidden = true;
-            emptyMsg.hidden = false;
-        });
+        render();
     </script>
 
     <script src="js/app.js"></script>
