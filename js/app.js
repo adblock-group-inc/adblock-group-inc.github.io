@@ -32,9 +32,8 @@ function addToCart(name, price) {
 
 const detailPage = document.querySelector(".product-detail-page");
 if (detailPage) {
-  const name = detailPage.querySelector(".product-card-info .flow h2")?.textContent.trim() ?? "";
-  const flows = detailPage.querySelectorAll(".product-card-info > .flow");
-  const price = flows[flows.length - 1]?.querySelector("h2, .price")?.textContent.trim() ?? "";
+  const name = detailPage.querySelector(".product-data h2")?.textContent.trim() ?? "";
+  const price = detailPage.querySelector(".price")?.textContent.trim() ?? "";
 
   detailPage.querySelectorAll(".btn.yellow-btn:not([data-action])").forEach((btn) => {
     btn.addEventListener("click", () => {
