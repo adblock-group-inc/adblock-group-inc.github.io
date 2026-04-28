@@ -507,6 +507,10 @@
     height: 100%
   }
 
+  .cart-empty-card h3 {
+    text-transform: inherit;
+  }
+
   .product-card-info {
     border: var(--border);
     border-radius: var(--border-radius-small);
