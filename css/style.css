@@ -49,7 +49,7 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--grid-placement, auto-fill), minmax(var(--grid-min-item-size, 16rem), 1fr));
-    gap: var(--gutter, var(--space-s-l))
+    gap: var(--gutter, var(--space-s-m))
   }
 
   .grid[data-layout='halves'] {
@@ -172,7 +172,7 @@
     font-weight: normal;
     font-size: var(--step-0);
     color: var(--clr-text);
-    padding-block: var(--space-l);
+    padding-block: var(--space-s);
     padding-inline: var(--space-s-l);
     background-color: var(--clr-bg)
   }
@@ -200,9 +200,13 @@
     font-size: var(--step-2)
   }
 
-  header:has(img[src="/public/img/assets_adblock13.png"]) {
+  header:has(a[href="/index.html"]) {
     margin-inline: var(--space-2xs);
     width: fit-content
+  }
+
+  .product-card-info a[href="/products.html"] {
+    width: fit-content;
   }
 
   a {
@@ -285,7 +289,7 @@
 
   main {
     container-type: inline-size;
-    padding: var(--space-s-l)
+    padding: var(--space-s-m);
   }
 
   section.main-section {
@@ -382,7 +386,7 @@
 
   .products-page .products {
     display: grid;
-    gap: var(--space-s-l);
+    gap: var(--space-s-m);
     grid-template-columns: 1fr;
     grid-auto-rows: 1fr auto;
     padding-inline-start: 0
@@ -436,7 +440,7 @@
     display: grid;
     grid-template-rows: auto 1fr;
     gap: var(--space-3xs);
-    min-height: calc(100dvh - 2 * var(--space-xl))
+    min-height: calc(100dvh - 100px);
   }
 
   :modal {
@@ -450,7 +454,7 @@
     display: grid;
     place-items: center;
     gap: var(--space-m-l);
-    padding-block: var(--space-xl) var(--space-l);
+    padding-block: var(--space-xl) var(--space-m);
     padding-inline: var(--space-xl)
   }
 
@@ -882,6 +886,7 @@
   img,
   picture {
     max-width: 100%;
+    height: auto;
     display: block
   }
 

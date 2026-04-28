@@ -24,84 +24,88 @@
 
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fff">
-    <script defer src="https://cdn.jsdelivr.net/npm/quicklink@3.0.1/dist/quicklink.umd.js"></script>
-    <script>
-      window.addEventListener('load', () => {
-        quicklink.listen();
-      });
-    </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/quicklink@3.0.1/dist/quicklink.umd.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      quicklink.listen();
+    });
+  </script>
 </head>
 
 <body>
 
-  <div class="page-wrapper">
-    <header>
-      <a href="/index.html">
-        <img src="/public/img/assets_adblock13.webp" alt="">
-      </a>
-    </header>
-    <section class="main-section">
-      <nav aria-label="primary">
-        <ul class="cluster" role="list">
-          <li>
-            <a href="index.html">Hem</a>
-          </li>
-          <li>
-            <a href="products.html">Våra produkter</a>
-          </li>
-          <li>
-            <a href="contact.html">Kontakt</a>
-          </li>
-          <li>
-            <a href="checkout.html">
-              <i class="icon icon-shopping-cart"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <main>
-
-        <div class="grid" data-layout='halves'>
-          <a href="/products.html">
-            <figure class="slideshow">
-              <div class="img-crossfade">
-                <img src="/public/img/slideshow/brytbladskniv_slideshow.webp" alt="" fetchpriority=high>
-                <img src="/public/img/slideshow/glasögonskydd_slideshow.webp" alt="">
-                <img src="/public/img/slideshow/hammare_a_slideshow.webp" alt="">
-                <img src="/public/img/slideshow/hammare_slideshow.webp" alt="">
-                <img src="/public/img/slideshow/mobilskydd_a_slideshow.webp" alt="">
-                <img src="/public/img/slideshow/mobilskydd_slideshow.webp" alt="">
-                <img src="/public/img/slideshow/roller_slideshow.webp" alt="">
-                <img src="/public/img/slideshow/skyddsglasögon_slideshow.webp" alt="">
-              </div>
-              <figcaption>Utforska våra produkter</figcaption>
-            </figure>
+<div class="page-wrapper">
+  <header>
+    <a href="/index.html">
+      <img src="/public/img/assets_adblock13.webp" alt="" width="494" height="100">
+    </a>
+  </header>
+  <section class="main-section">
+    <nav aria-label="primary">
+      <ul class="cluster" role="list">
+        <li>
+          <a href="index.html" aria-current="page">Hem</a>
+        </li>
+        <li>
+          <a href="products.html">Våra produkter</a>
+        </li>
+        <li>
+          <a href="contact.html">Kontakt</a>
+        </li>
+        <li>
+          <a href="checkout.html">
+            <i class="icon icon-shopping-cart"></i>
           </a>
+        </li>
+      </ul>
+    </nav>
+    <main>
 
-          <figure class="repel" data-direction="column">
-            <img src="/public/img/ad1.webp" alt="">
-            <img src="/public/img/ad_banner.webp" alt="">
+      <div class="grid" data-layout='halves'>
+        <a href="/products.html">
+          <figure class="slideshow">
+            <div class="img-crossfade">
+              <img src="/public/img/slideshow/brytbladskniv_slideshow.webp" alt="" width="600" height="600"
+                   fetchpriority=high>
+              <img src="/public/img/slideshow/glasögonskydd_slideshow.webp" alt="" width="600" height="600"
+                   loading="lazy">
+              <img src="/public/img/slideshow/hammare_a_slideshow.webp" alt="" width="600" height="600" loading="lazy">
+              <img src="/public/img/slideshow/hammare_slideshow.webp" alt="" width="600" height="600" loading="lazy">
+              <img src="/public/img/slideshow/mobilskydd_a_slideshow.webp" alt="" width="600" height="600"
+                   loading="lazy">
+              <img src="/public/img/slideshow/mobilskydd_slideshow.webp" alt="" width="600" height="600" loading="lazy">
+              <img src="/public/img/slideshow/roller_slideshow.webp" alt="" width="600" height="600" loading="lazy">
+              <img src="/public/img/slideshow/skyddsglasögon_slideshow.webp" alt="" width="600" height="600"
+                   loading="lazy">
+            </div>
+            <figcaption>Utforska våra produkter</figcaption>
           </figure>
-        </div>
-      </main>
-    </section>
-  </div>
+        </a>
 
-  <div class="imposter">
-    <dialog class="text-centered cookieDialog" id="cookieDialog">
-      <form method="dialog">
-        <h2>Cookies? Nej tack.</h2>
-        <p>Vi snor inte din data och säljer den till andra företag.</p>
-        <button class="btn grey-btn">OK</button>
-      </form>
-    </dialog>
-  </div>
+        <figure class="repel" data-direction="column">
+          <img src="/public/img/ad1.webp" alt="" width="900" height="698">
+          <img src="/public/img/ad_banner.webp" alt="" width="1000" height="155">
+        </figure>
+      </div>
+    </main>
+  </section>
+</div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      cookieDialog.showModal();
-    });
-  </script>
+<div class="imposter">
+  <dialog class="text-centered cookieDialog" id="cookieDialog">
+    <form method="dialog">
+      <h2>Cookies? Nej tack.</h2>
+      <p>Vi snor inte din data och säljer den till andra företag.</p>
+      <button class="btn grey-btn">OK</button>
+    </form>
+  </dialog>
+</div>
+
+<script>
+  addEventListener("load", (event) => {
+    cookieDialog.showModal();
+  })
+</script>
 
 </body>
 
