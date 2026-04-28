@@ -159,7 +159,7 @@
 
   html {
     scrollbar-color: var(--clr-fg) var(--clr-bg);
-    cursor: var(--cursor-grey-default)
+    cursor: var(--cursor-yellow-default);
   }
 
   body {
@@ -219,21 +219,7 @@
 
   a,
   button {
-    cursor: var(--cursor-grey-pointer)
-  }
-
-  section.main-section {
-    cursor: var(--cursor-yellow-default)
-  }
-
-  section.main-section a,
-  section.main-section button {
-    cursor: var(--cursor-yellow-pointer)
-  }
-
-  .testa-gratis-modal button,
-  section.main-section .btn.yellow-btn {
-    cursor: var(--cursor-grey-pointer)
+    cursor: var(--cursor-yellow-pointer);
   }
 
   :focus {
@@ -474,12 +460,7 @@
     text-transform: unset
   }
 
-  .cookieDialog {
-    cursor: var(--cursor-grey-default)
-  }
-
   .cookieDialog button {
-    cursor: var(--cursor-yellow-pointer);
     padding-block: var(--space-s) var(--space-xs);
     padding-inline: var(--space-2xl);
     font-size: var(--step-1)
